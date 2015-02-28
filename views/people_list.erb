@@ -1,0 +1,11 @@
+<% for exp in @experiences %>
+<div class="experience">
+  <% person = Person.find(exp.person_id) %>
+  <p><%= exp.company %></p>
+  <p><%= person.firstname %> <%= person.lastname %> (Class of <%= person.graduation_class %>)</p>
+  <p><%= person.emailnonnd %></p>
+  <p><%= person.emailnd %></p>
+  <p><%= person.currentcity %></p>
+  <hr />
+</div>
+<% end %>
