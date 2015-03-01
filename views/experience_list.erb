@@ -1,5 +1,7 @@
-<% for person in @people %>
+<% for exp in @experiences %>
 <div class="col-sm-6 col-md-4 experience">
+  <% person = Person.find(exp.person_id) %>
+  <p><%= exp.company %></p>
   <p><%= person.firstname %> <%= person.lastname %> (Class of <%= person.graduation_class %>)</p>
   <p><%= person.emailnonnd %></p>
   <p><%= person.emailnd %></p>

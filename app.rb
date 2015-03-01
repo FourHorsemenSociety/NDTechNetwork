@@ -2,22 +2,37 @@ require 'sinatra'
 require 'sinatra/activerecord'
 
 require_relative 'models/init'
+require_relative 'app_helpers'
 
 class NDTechNetworkApp < Sinatra::Base
+
+  helpers AppHelpers
 
   register Sinatra::ActiveRecordExtension
 
   set :root, File.dirname(__FILE__)
-  set :views, Proc.new { File.join(root, "views") }
+  # set :views, Proc.new { File.join(root, "views") }
   set :database_file, "config/database.yml"
 
   enable :sessions
 
   get '/' do
+    erb :index
+  end
+
+  get '/students' do
+    @people = Person.where("graduation_class >= ?", current_student_year)
+    erb :people_list
+  end
+
+  get '/grads' do
+    @people = Person.where("graduation_class < ?", current_student_year)
+    erb :people_list
+  end
+
+  get '/experiences' do
     @experiences = Experience.all
-    erb :people_list, :layout => false do
-      erb :layout
-    end
+    erb :experience_list
   end
 
   post '/person' do
