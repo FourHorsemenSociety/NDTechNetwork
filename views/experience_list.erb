@@ -1,11 +1,15 @@
-<% for exp in @experiences %>
-<div class="col-sm-6 col-md-4 experience">
+<% @experiences.each do |exp| %>
+<div class="col-sm-6 col-md-4 card">
+<div class="card-inner">
   <% person = Person.find(exp.person_id) %>
-  <p><%= exp.company %></p>
   <p><%= person.firstname %> <%= person.lastname %> (Class of <%= person.graduation_class %>)</p>
-  <p><%= person.emailnonnd %></p>
-  <p><%= person.emailnd %></p>
-  <p><%= person.currentcity %></p>
-  <hr />
+  <%= if person.emailnd
+        "<p>#{person.emailnd}</p>"
+      elsif person.emailnonnd
+        "<p>#{person.emailnonnd}</p>"
+      end %></p>
+  <p><%= exp.position %> <%= "(Internship)" if exp.is_intern %></p>
+  <p><%= exp.company %><%= " (#{person.currentcity})"%></p>
+</div>
 </div>
 <% end %>

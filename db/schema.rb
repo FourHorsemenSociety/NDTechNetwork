@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150228184240) do
+ActiveRecord::Schema.define(version: 20150301171530) do
 
   create_table "experiences", force: :cascade do |t|
     t.integer "person_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150228184240) do
     t.boolean "is_intern"
     t.string  "position_desc"
     t.integer "sentiment"
+    t.string  "state"
   end
 
   create_table "people", force: :cascade do |t|

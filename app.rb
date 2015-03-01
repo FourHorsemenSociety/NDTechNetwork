@@ -11,7 +11,6 @@ class NDTechNetworkApp < Sinatra::Base
   register Sinatra::ActiveRecordExtension
 
   set :root, File.dirname(__FILE__)
-  # set :views, Proc.new { File.join(root, "views") }
   set :database_file, "config/database.yml"
 
   enable :sessions
@@ -21,27 +20,51 @@ class NDTechNetworkApp < Sinatra::Base
   end
 
   get '/people/all' do
+    @title = "All People"
     @people = Person.all
     erb :people_list
   end
 
   get '/people/students' do
+    @title = "Current Students"
     @people = Person.where("graduation_class >= ?", current_student_year)
     erb :people_list
   end
 
-  get '/people/grads' do
+  get '/people/alumni' do
+    @title = "Alumni"
     @people = Person.where("graduation_class < ?", current_student_year)
     erb :people_list
   end
 
   get %r(/people/([\d]{4})) do |year|
+    @title = "Student Search"
     @people = Person.where("graduation_class = ?", year)
     erb :people_list
   end
 
   get '/experiences' do
+    @title = "Experiences"
     @experiences = Experience.all
+    erb :experience_list
+  end
+
+  get '/experiences/internship' do
+    @title = "Internship"
+    @experiences = Experience.where("is_intern = 't'")
+    erb :experience_list
+  end
+
+  get '/experiences/fulltime' do
+    @title = "Full Time"
+    @experiences = Experience.where("is_intern = 'f'")
+    erb :experience_list
+  end
+
+  get '/experiences/company/:company' do |company|
+    @title = "Company Search"
+    @experiences = Experience.where("company like ?", "%#{company}%")
+    puts "%#{company}%"
     erb :experience_list
   end
 

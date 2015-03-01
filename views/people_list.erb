@@ -1,10 +1,21 @@
-<% for person in @people %>
-<div class="col-sm-6 col-md-4 experience">
-  <p><%= person.firstname %> <%= person.lastname %> (Class of <%= person.graduation_class %>)</p>
-  <%= "<p>#{person.emailnonnd}</p>" if person.emailnonnd %>
-  <%= "<p>#{person.emailnd}</p>" if person.emailnd %>
-  <% exp = Experience.find_by(person_id: person.id) %>
-  <p><%= exp.company if exp %></p>
-  <hr />
+<div class="people_list">
+<% @people.each do |person| %>
+<% exp = Experience.find_by(person_id: person.id) %>
+<% if exp %>
+<div class="col-sm-6 col-md-4 card">
+  <div class="card-inner">
+    <p><%= person.firstname %> <%= person.lastname %> (Class of <%= person.graduation_class %>)</p>
+    <%= if person.emailnd
+          "<p>#{person.emailnd}</p>"
+        elsif person.emailnonnd
+          "<p>#{person.emailnonnd}</p>"
+        else
+          "<p>No email on file</p>"
+        end %></p>
+    <p><%= exp.company %></p>
+  </div>
 </div>
 <% end %>
+<% end %>
+
+</div>

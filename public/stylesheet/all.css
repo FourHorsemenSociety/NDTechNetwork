@@ -1,0 +1,12 @@
+body {
+  padding-top: 70px;
+}
+
+div.card {
+  padding: 10px;
+}
+
+div.card-inner {
+  padding: 10px;
+  background: gray;
+}
