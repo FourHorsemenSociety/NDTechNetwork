@@ -1,9 +1,10 @@
 <% for person in @people %>
 <div class="col-sm-6 col-md-4 experience">
   <p><%= person.firstname %> <%= person.lastname %> (Class of <%= person.graduation_class %>)</p>
-  <p><%= person.emailnonnd %></p>
-  <p><%= person.emailnd %></p>
-  <p><%= person.currentcity %></p>
+  <%= "<p>#{person.emailnonnd}</p>" if person.emailnonnd %>
+  <%= "<p>#{person.emailnd}</p>" if person.emailnd %>
+  <% exp = Experience.find_by(person_id: person.id) %>
+  <p><%= exp.company if exp %></p>
   <hr />
 </div>
 <% end %>

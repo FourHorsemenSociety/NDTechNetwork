@@ -20,13 +20,23 @@ class NDTechNetworkApp < Sinatra::Base
     erb :index
   end
 
-  get '/students' do
+  get '/people/all' do
+    @people = Person.all
+    erb :people_list
+  end
+
+  get '/people/students' do
     @people = Person.where("graduation_class >= ?", current_student_year)
     erb :people_list
   end
 
-  get '/grads' do
+  get '/people/grads' do
     @people = Person.where("graduation_class < ?", current_student_year)
+    erb :people_list
+  end
+
+  get %r(/people/([\d]{4})) do |year|
+    @people = Person.where("graduation_class = ?", year)
     erb :people_list
   end
 
